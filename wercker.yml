@@ -17,10 +17,9 @@ build:
         working-dir: $WERCKER_ROOT
         tag: $WERCKER_GIT_COMMIT
         ports: "8080"
-        username: _json_key
-        password: $GCP_KEY_JSON
-        repository: $GCR_TAG
-        registry: $GCR_HOST
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHU_PASSWORD
+        repository: $DOCKERHUB_REPO
 
 deploy-to-kubernetes:
     box: python:2.7
@@ -46,11 +45,11 @@ deploy-to-kubernetes:
     # Kubernetes configuration.
 
     # `apply` is a good command to use here, as it'll create Kubernetes entities if they are missing.
-    - riceo/kubectl:
+    - kubectl:
+        name: deploy to kubernetes
         name: deploy to kubernetes
         server: $KUBERNETES_MASTER
-        gcloud-key-json: $GCP_KEY_JSON
-        gke-cluster-name: $GKE_CLUSTER_NAME
-        gke-cluster-zone: $GKE_CLUSTER_ZONE
-        gke-cluster-project: $GKE_CLUSTER_PROJECT
+        username: $KUBERNETES_USERNAME
+        password: $KUBERNETES_PASSWORD
+        insecure-skip-tls-verify: true
         command: apply -f $WERCKER_OUTPUT_DIR/kubernetes/
