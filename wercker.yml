@@ -18,7 +18,7 @@ build:
         tag: $WERCKER_GIT_COMMIT
         ports: "8080"
         username: $DOCKERHUB_USERNAME
-        password: $DOCKERHU_PASSWORD
+        password: $DOCKERHUB_PASSWORD
         repository: $DOCKERHUB_REPO
 
 deploy-to-kubernetes:
